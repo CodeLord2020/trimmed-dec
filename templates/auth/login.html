@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Login Form </title>
+    <link rel="stylesheet" href="{% static 'reg_style.css'  %}">
+   </head>
+<body>
+  <a href="{% url 'index' %}" style="position: absolute; top: 10px; left: 10px; color: #fff; padding: 10px; background-color: #333; border-radius: 5px; text-decoration: none; font-weight: bold;">Home</a>
+  <div class="wrapper">
+    <h2>LOGIN</h2>
+    <form method="POST" action="login">
+      {% csrf_token %}
+      <div class="input-box">
+        <input type="text" name = "username" placeholder="Enter your username" required>
+      </div>
+
+      <div class="input-box">
+        <input type="password" name = "password" placeholder="Enter password" required>
+      </div>
+      <div class="input-box button">
+        <input type="Submit" value="Sign In">
+      </div>
+      <div class="text">
+        <h3>Don't have an account? <a href="register">Sign up now</a></h3>
+      </div>
+      <div class="text">
+        <h6 style="text-align: center;"><a style="color: rgb(106, 109, 109);"  href="forgot_password">Forgotten Password?</a></h6>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>
