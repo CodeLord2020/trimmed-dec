@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+</head>
+<body>
+    <h1>Sentiment Analysis Results for {{ keyword }}</h1>
+    <p>VADER Average Score: {{ avg_vader_score }}</p>
+    <p>TextBlob Average Score: {{ avg_textblob_score }}</p>
+
+    <h1>Sentiment Analysis Charts</h1>
+
+    <p>VADER Sentiment Chart:</p>
+    <img src="data:image/png;base64,{{ vader_chart_filename }}" alt="VADER Sentiment Chart" width="500" height="300">
+    
+    <p>TextBlob Sentiment Chart:</p>
+    <img src="data:image/png;base64,{{ textblob_chart_filename }}" alt="TextBlob Sentiment Chart" width="500" height="300">
+ 
+    <p>WordCloud Chart:</p>
+    <img src="data:image/png;base64,{{ comments_wordcloud }}" alt="Word Cloud">
+</body>
+</html>

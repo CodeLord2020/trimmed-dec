@@ -37,17 +37,17 @@ djangorestframework-simplejwt==5.2.2
 djoser==2.2.0
 drf-yasg==1.21.7
 environs==9.5.0
-Flask==2.3.2
-Flask-Admin==1.6.1
-Flask-Caching==2.0.2
-Flask-Cors==4.0.0
-Flask-JWT-Extended==4.5.2
-Flask-Login==0.6.2
-Flask-Mail==0.9.1
-Flask-Migrate==4.0.4
-Flask-RESTful==0.3.10
-Flask-SQLAlchemy==3.0.5
-Flask-WTF==1.1.1
+# Flask==2.3.2
+# Flask-Admin==1.6.1
+# Flask-Caching==2.0.2
+# Flask-Cors==4.0.0
+# Flask-JWT-Extended==4.5.2
+# Flask-Login==0.6.2
+# Flask-Mail==0.9.1
+# Flask-Migrate==4.0.4
+# Flask-RESTful==0.3.10
+# Flask-SQLAlchemy==3.0.5
+# Flask-WTF==1.1.1
 greenlet==2.0.2
 h11==0.14.0
 httplib2==0.22.0

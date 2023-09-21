@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, get_user_model
 from django.conf import settings
 
+
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.mail import send_mail
@@ -12,9 +13,6 @@ from django.utils.encoding import force_bytes
 from django.contrib import messages
 
 from .forms import MyUserCreationForm
-
-
-
 
 
 def register(request):
@@ -102,9 +100,3 @@ def reset_password(request, uid, token):
         user = None
     messages.error(request, 'Invalid or Expired link')
     return redirect('auth/forgot_password')
-
-
-def index(request):
-    if request.method == 'POST':
-        pass
-    return render(request, 'index.html')

@@ -1,0 +1,28 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentiment Analysis</title>
+<link rel="stylesheet" href="{% static 'index_css.css' %}">
+</head>
+<body>
+  <div class="container">
+    <div class="form-container">
+    {% if user.is_authenticated %} 
+    <h1>  Hi {{user.username}} </h1>
+    {% endif %} 
+      <h1>Sentiment Analysis</h1>
+      <form id="sentimentForm" method="post">
+        {% csrf_token %}
+        <label for="brandName">Enter Brand Name or Keyword:</label>
+        <input type="text" id="brandName" name="keyword" required>
+        <input type="submit" value="Analyze">
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>
