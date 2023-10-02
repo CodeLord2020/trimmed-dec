@@ -1,20 +1,47 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Result</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentiment Analysis</title>
+<link rel="stylesheet" href="{% static 'index_css.css' %}">
 </head>
+
 <body>
-    <h1>Sentiment Analysis Results for {{ keyword }}</h1>
-    <p>VADER Average Score: {{ avg_vader_score }}</p>
-    <p>TextBlob Average Score: {{ avg_textblob_score }}</p>
+    <h1>Sentiment Analysis Results ({{analysis_method}}) for {{ keyword }}</h1>
+    <p>{{analysis_method}} Average Score: {{ avg_sentiment_score }}</p>
 
-    <h1>Sentiment Analysis Charts</h1>
 
-    <p>VADER Sentiment Chart:</p>
-    <img src="data:image/png;base64,{{ vader_chart_filename }}" alt="VADER Sentiment Chart" width="500" height="300">
-    
-    <p>TextBlob Sentiment Chart:</p>
-    <img src="data:image/png;base64,{{ textblob_chart_filename }}" alt="TextBlob Sentiment Chart" width="500" height="300">
+    <h1><b> Sentiment Analysis Charts </b></h1>
+    <h1>Top Comments</h1>
+
+    <h2>Top 10 Positive Comments ({{analysis_method}})</h2>
+    <ul>
+        {% for comment in top_pos_comments %}
+            <li>{{ comment }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Top 10 Negative Comments ({{analysis_method}})</h2>
+    <ul>
+        {% for comment in top_neg_comments %}
+            <li>{{ comment }}</li>
+        {% endfor %}
+    </ul>
+
+
+    <div>
+    <p>{{analysis_method}} Sentiment Chart:</p>
+    <img src="data:image/png;base64,{{ hist_chart_filename }}" alt="{{analysis_method}} Sentiment  Hist Chart" width="500" height="300">
+    </div>
+
+    <div>
+    <p>{{analysis_method}} Sentiment Chart:</p>
+    <img src="data:image/png;base64,{{ sentiments_chart_heatmap }}" alt="{{analysis_method}} Sentiment Heatmap" width="500" height="300">
+   
+    </div>
  
     <p>WordCloud Chart:</p>
     <img src="data:image/png;base64,{{ comments_wordcloud }}" alt="Word Cloud">

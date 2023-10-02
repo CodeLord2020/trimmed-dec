@@ -38,9 +38,7 @@ DEBUG = os.getenv('DEBUG')
 
 # AUTH_USER_MODEL = 'authentication.CustomUser'
 
-
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1',  'mysite.com', 'sentimentapp']
 
 # Application definition
 
@@ -98,10 +96,15 @@ WSGI_APPLICATION = 'Base.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'sentimentapp_db',
+        'USER': 'admin',
+        'PASSWORD': 'baddest419',
+        'HOST': 'localhost',  # Or your PostgreSQL server's IP address
+        'PORT': '',            # Leave it empty to use the default PostgreSQL port (5432)
     }
 }
+
 
 
 # Password validation

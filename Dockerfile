@@ -6,10 +6,10 @@ COPY . /app
 
 RUN pip install -r requirements.txt
 
-EXPOSE 8000
+EXPOSE 8001
 
 # Define environment variable to prevent buffering of Python output
 ENV PYTHONUNBUFFERED 1
 
 # Run app.py when the container launches
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8001"]

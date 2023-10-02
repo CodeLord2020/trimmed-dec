@@ -8,21 +8,32 @@
 <title>Sentiment Analysis</title>
 <link rel="stylesheet" href="{% static 'index_css.css' %}">
 </head>
+
 <body>
   <div class="container">
     <div class="form-container">
-    {% if user.is_authenticated %} 
-    <h1>  Hi {{user.username}} </h1>
-    {% endif %} 
+      {% if user.is_authenticated %} 
+      <h1>  Hi {{user.username}} </h1>
+      {% endif %} 
       <h1>Sentiment Analysis</h1>
       <form id="sentimentForm" method="post">
         {% csrf_token %}
         <label for="brandName">Enter Brand Name or Keyword:</label>
         <input type="text" id="brandName" name="keyword" required>
+
+        <!-- Add the Analysis Method field -->
+        <label for="analysisMethod">Select Analysis Method:</label>
+        <select id="analysisMethod" name="analysis_method" required>
+          <option value="BERT">BERT</option>
+          <option value="RoBERTa">RoBERTa</option>
+          <option value="TextBlob">TextBlob</option>
+          <option value="VADER">VADER</option>
+        </select>
+
         <input type="submit" value="Analyze">
       </form>
     </div>
   </div>
-
 </body>
+
 </html>
