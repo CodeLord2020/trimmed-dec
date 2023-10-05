@@ -13,7 +13,7 @@ from wordcloud import WordCloud
 
 
 # Initialize the sentiment analysis pipeline for the specific model
-roberta1_pipeline = pipeline(model="finiteautomata/bertweet-base-sentiment-analysis")
+roberta1_pipeline = pipeline(model="cardiffnlp/twitter-roberta-base-sentiment-latest")
 
 # Initialize the Reddit API client
 reddit = praw.Reddit(

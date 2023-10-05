@@ -121,7 +121,7 @@ def bert3_view(request, keyword):
     if sentiments_bert_plot is not None:
         context = {
             'keyword': keyword,
-            'analysis_method': 'BERT(nlptown/bert-base-multilingual-uncased-sentiment)',
+            'analysis_method': 'BERT(finiteautomata/bertweet-base-sentiment-analysis)',
             'average_score':average_score,
             'sentiments_bert_plot': sentiments_bert_plot,
             'comments_wordcloud': comments_wordcloud,
@@ -130,7 +130,7 @@ def bert3_view(request, keyword):
         context = {
             
             'keyword': keyword,
-            'analysis_method': 'BERT',
+            'analysis_method': 'BERT(finiteautomata/bertweet-base-sentiment-analysis)',
             'average_score':'',
             'sentiments_bert_plot': '',
             'comments_wordcloud': '',
@@ -145,7 +145,7 @@ def roberta1_view(request, keyword):
     if sentiments_bert_plot is not None:
         context = {
             'keyword': keyword,
-            'analysis_method': 'BERT(nlptown/bert-base-multilingual-uncased-sentiment)',
+            'analysis_method': 'RoBERTa(cardiffnlp/twitter-roberta-base-sentiment-latest)',
             'average_score':average_score,
             'sentiments_bert_plot': sentiments_bert_plot,
             'comments_wordcloud': comments_wordcloud,
@@ -154,7 +154,7 @@ def roberta1_view(request, keyword):
         context = {
             
             'keyword': keyword,
-            'analysis_method': 'BERT',
+            'analysis_method': 'RoBERTa(cardiffnlp/twitter-roberta-base-sentiment-latest)',
             'average_score':'',
             'sentiments_bert_plot': '',
             'comments_wordcloud': '',
