@@ -3,6 +3,16 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.index, name = 'index'),
-    path('home', views.index, name = 'index'),
+
+
+    path('', views.home, name = 'home'),
+    path('home', views.home, name = 'home'),
+    path('contact', views.contact, name = 'contact'),
+
+    path('textblob/<str:keyword>/', views.textblob_view, name='textblob_view'),
+    path('vader/<str:keyword>/', views.vader_view, name='vader_view'),
+    path('bert1/<str:keyword>/', views.bert1_view, name='bert1_view'),
+    path('bert3/<str:keyword>/', views.bert3_view, name='bert3_view'),
+    path('roberta1/<str:keyword>/', views.roberta1_view, name='roberta1_view'),
+    
 ]

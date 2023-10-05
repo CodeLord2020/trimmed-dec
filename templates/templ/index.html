@@ -1,0 +1,205 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Xentiment</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header" class="alt">
+						<a href="{% url 'home' %}" class="logo"><strong>Xentiment</strong> <span>by Macsauce</span></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="{% url 'home' %}">Home</a></li>
+							<li><a href="{% url 'contact' %}">Contact</a></li>
+							<li><a href="elements.html">Donate</a></li>
+							{%  if user.is_authenticated %}
+							<li><a href="logout">Logout</a></li>
+							{% else %}
+							<li><a href="login">Login or Sign up</a></li>
+							{% endif %}
+						</ul>
+							
+						<ul class="actions stacked">
+							<li><a href="#" class="button primary fit">Get Started</a></li>
+							
+						</ul>
+					</nav>
+
+				<!-- Banner -->
+					<section id="banner" class="major">
+						<div class="inner">
+							<header class="major">
+								{% if user.is_authenticated %} 
+								<h1>Hi {{user.username|title}} , Welcome to Xentiment</h1>
+								{% else%} 
+								<h1>Hello Stranger, Welcome to Xentiment</h1>
+								{% endif %}
+							</header>
+							<div class="content">
+								<p>Elevate your decision-making with our AI-driven <br>
+									Sentiment analysis tools using Reddit Insights!<br>
+								</p>
+								<form method="post" action="{% url 'home' %}">
+									{% csrf_token %}
+									<input type="text" name="keyword" id="keyword" style="background-color: white; color: black; font-weight: bold;" />
+									
+
+									{% comment %} <input type="text" name="keyword" id="keyword" placeholder="Enter Brand or Keyword" style="background-color: white; color: black; font-weight: bold;" /> {% endcomment %}
+									<select name="analysis_method" id="analysis_method" required>
+										<option value="" disabled selected>Select Method</option>
+										<option value="method1">Method ONE</option>
+										<option value="method2">Method TWO</option>
+										<option value="method3">Method THREE</option>
+										<option value="method4">Method FOUR</option>
+										<option value="method5">Method FIVE</option>
+										<option value="method6">Method SIX</option>
+									</select>
+									<ul class="actions">
+										<li><button type="submit" class="button next">Enter</button></li>
+									</ul>
+								</form>
+								
+								<ul class="actions">
+									<li><br><a href="#one" class="button next scrolly">Explore Methods</a></li>
+								</ul>
+							</div>
+						</div>
+					</section>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- One -->
+							<section id="one" class="tiles">
+								<article>
+									<span class="image">
+										<img src="{% static "images/pic01.jpg" %}" alt="" />
+									</span>
+									<header class="major">
+										<h3><a href="https://textblob.readthedocs.io/en/dev/" class="link">METHOD 1: TEXTBLOB</a></h3>
+										<p></p>
+										<p>Versatile Python library offering simple sentiment analysis, translation, and more.
+											 An accessible choice for text processing tasks in your analysis.</p>
+									</header>
+								</article>
+								<article>
+									<span class="image">
+										<img src="{% static "images/pic02.jpg" %}" alt="" />
+									</span>
+									<header class="major">
+										<h3><a href="https://vadersentiment.readthedocs.io/en/latest/" class="link">METHOD 2: VADER</a></h3>
+										<p>VADER uses a combination of lexicon-based and grammatical rules to determine the sentiment
+											 polarity (positive, negative, or neutral) of a piece of text. </p>
+									</header>
+								</article>
+								<article>
+									<span class="image">
+										<img src="{% static "images/pic03.jpg" %}" alt="" />
+									</span>
+									<header class="major">
+										<h3><a href="https://huggingface.co/nlptown/bert-base-multilingual-uncased-sentiment" class="link">METHOD 3: BERT</a></h3>
+										<p>"nlptown/bert-base-multilingual-uncased-sentiment." This is a bert-base-multilingual-uncased model finetuned for sentiment analysis on product reviews in:
+											 English, Dutch, German, French, Spanish, Italian.</p>
+									</header>
+								</article>
+								<article>
+									<span class="image">
+										<img src="{% static "images/pic04.jpg" %}" alt="" />
+									</span>
+									<header class="major">
+										<h3><a href="https://huggingface.co/finiteautomata/bertweet-base-sentiment-analysis" class="link">METHOD 4: BERT</a></h3>
+										<p>"finiteautomata/bertweet-base-sentiment-analysis."
+											 Model trained with SemEval 2017 corpus (around ~40k tweets).
+											 Base model is BERTweet, a RoBERTa model trained on English tweets.</p>
+									</header>
+								</article>
+								<article>
+									<span class="image">
+										<img src="{% static "images/pic05.jpg" %}" alt="" />
+									</span>
+									<header class="major">
+										<h3><a href="landing.html" class="link">METHOD 5: RoBERTa</a></h3>
+										<p>"cardiffnlp/twitter-roberta-base-sentiment-latest. 
+											This is a RoBERTa-base model trained on ~124M tweets from January 2018 to December 2021, 
+											and finetuned for sentiment analysis with the TweetEval benchmark." </p>
+									</header>
+								</article>
+								<article>
+									<span class="image">
+										<img src="{% static "images/pic06.jpg" %}" alt="" />
+									</span>
+									<header class="major">
+										<h3><a href="https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment-latest" class="link">METHOD 6: WURUWURU </a></h3>
+										<p>Feugiat amet tempus</p>
+									</header>
+								</article>
+							</section>
+
+						<!-- Two -->
+							<section id="two">
+								<div class="inner">
+									<header class="major">
+										<h2>Massa libero</h2>
+									</header>
+									<p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus pharetra. Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus amet pharetra et feugiat tempus.</p>
+									<ul class="actions">
+										<li><a href="landing.html" class="button next">Get Started</a></li>
+									</ul>
+								</div>
+							</section>
+
+					</div>
+
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="icons">
+								<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+								<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+								<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+								<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+								<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+							</ul>
+							<ul class="copyright">
+								<li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+		
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
+			<script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+			<script src="{% static 'assets/js/browser.min.js' %}"></script>
+			<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'assets/js/util.js' %}"></script>
+			<script src="{% static 'assets/js/main.js' %}"></script>
+
+
+	</body>
+</html>

@@ -13,6 +13,7 @@ import nltk
 from .models import Query_data
 import seaborn as sns
 
+
 # Initialize the Reddit API client
 reddit = praw.Reddit(
     client_id = os.getenv('Client_ID'),
@@ -24,6 +25,7 @@ reddit = praw.Reddit(
 #############################################             Data Collection          ############################################################################
 
 def start_sentiment_analysis_TextBlob(query):
+
     try:
         comments_max =  750
         limit = 15

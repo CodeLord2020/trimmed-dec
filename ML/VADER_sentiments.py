@@ -7,10 +7,7 @@ import praw
 import json
 from io import BytesIO
 import base64
-import requests
-import nltk
 import seaborn as sns
-
 from .models import Query_data
 
 # Initialize the Reddit API client
@@ -49,6 +46,7 @@ def start_sentiment_analysis_VADER(query):
 
         sentiments_data = calculate_sentiment(comments)
         comments_wordcloud = generate_wordcloud(comments)
+
 
     except praw.exceptions.PRAWException as reddit_exception:
         print('Reddit API error:', str(reddit_exception))

@@ -70,6 +70,15 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'Base.urls'
 
+CACHES = {
+    'default': {
+
+        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+        'LOCATION': '127.0.0.1:11211',  # Replace with your Memcached server address
+        # 'TIMEOUT': 7200,
+    }
+}
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -142,7 +151,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_URL = '/images/'
+#MEDIA_URL = '/images/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
