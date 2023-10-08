@@ -74,7 +74,6 @@ import matplotlib.pyplot as plt
 from textblob import TextBlob
 
 
-# nltk.download('punkt')
 def calculate_sentiment(comments):
     textblob_scores = []  # Initialize a list to store TextBlob sentiment scores
 
@@ -112,6 +111,8 @@ def calculate_sentiment(comments):
 
     return avg_textblob_score, img_str1, img_str2, top_pos_textblob, top_neg_textblob 
 
+
+
 from wordcloud import WordCloud
 def generate_wordcloud(comments):
     # Combine comments into a single text string
@@ -125,6 +126,7 @@ def generate_wordcloud(comments):
     wordcloud.to_image().save(img_buffer, format="PNG")
     img_str = base64.b64encode(img_buffer.getvalue()).decode("utf-8")
     return img_str
+
 
 def get_top_comments(comments, textblob_scores):
     # Combine comments, TextBlob scores, and VADER scores into a list of dictionaries

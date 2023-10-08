@@ -16,7 +16,7 @@ import os
 from environs import Env
 env = Env()
 env.read_env()
-
+from datetime import timedelta
 import socket
 hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
 INTERNAL_IPS = '127.0.0.1'  #if ruuning in docker:  [ip[:-1] + "1" for ip in ips]
@@ -161,6 +161,23 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REDIS_HOST = 'localhost' 
+REDIS_PORT = '6379' 
+BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0' 
+BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600} 
+CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+
+CELERY_BEAT_SCHEDULE = {
+    'clear_query_data_task': {
+        'task': 'your_app.tasks.clear_query_data',
+        'schedule': timedelta(days=3),  # Run every 3 days
+    },
+}
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

@@ -18,13 +18,16 @@
     <h1>Top Comments</h1>
 
     <h2>Top 10 Positive Comments ({{analysis_method}})</h2>
+    
     <ul>
         {% for comment in top_pos_comments %}
             <li>{{ comment }}</li>
         {% endfor %}
     </ul>
 
+
     <h2>Top 10 Negative Comments ({{analysis_method}})</h2>
+    
     <ul>
         {% for comment in top_neg_comments %}
             <li>{{ comment }}</li>

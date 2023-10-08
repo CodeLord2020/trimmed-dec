@@ -1,0 +1,199 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Zentiment Result</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+				<!-- Note: The "styleN" class below should match that of the banner element. -->
+					<header id="header" class="alt style2">
+						<a href="{% url 'home' %}" class="logo"><strong>Zentiment</strong> <span>by Macsauce</span></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="{% url 'home' %}">Home</a></li>
+							<li><a href="{% url 'contact' %}">Contact</a></li>
+							<li><a href="elements.html">Donate</a></li>
+							{%  if user.is_authenticated %}
+							<li><a href="logout">Logout</a></li>
+							{% else %}
+							<li><a href="login">Login or Sign up</a></li>
+							{% endif %}
+						</ul>
+							
+						<ul class="actions stacked">
+							<li><a href="#" class="button primary fit">Get Started</a></li>
+							
+						</ul>
+					</nav>
+
+				<!-- Banner -->
+				<!-- Note: The "styleN" class below should match that of the header element. -->
+					<section id="banner" class="style2">
+						<div class="inner">
+							<span class="image">
+								<img src="{% static 'images/pic07.jpg' %}" alt="" />
+							</span>
+							<header class="major">
+								<h1>Zentiments Feedback</h1>
+							</header>
+							<div class="content">
+								<p>The average sentiment score of {{keyword}}<br/>
+								 comments is {{ avg_sentiment_score }}.</p>
+							</div>
+						</div>
+					</section>
+
+				<!-- Main -->
+					<div id="main">
+
+						
+
+						<!-- Two -->
+							<section id="two" class="spotlights">
+								<section>
+									<div class="content">
+										<div class="inner">
+											<header class="major">
+												<h3>Top Positive Comments </h3>
+											</header>
+												{% for comment in top_pos_comments %}
+													<li>{{ comment }}</li>
+												{% endfor %}
+											<br>
+										</div>
+									</div>
+								</section>
+								<section>
+									<div class="content">
+										<div class="inner">
+											<header class="major">
+												<h3>Top Negative Comments </h3>
+											</header>
+												{% for comment in top_neg_comments %}
+													<li>{{ comment }}</li>
+												{% endfor %}
+											<br>
+										</div>
+									</div>
+								</section>
+								
+								<section>
+									<a href="generic.html" class="image">
+										<img src="data:image/png;base64,{{ hist_chart_filename }}" alt="{{analysis_method}} Sentiment  Hist Chart" width="500" height="500" display: block; style="max-width: 100%;">
+									</a>
+									<div class="content">
+										<div class="inner">
+											{% if chart1type == 'dist' %}
+											<header class="major">
+												<h3>{{analysis_method}} Histogram Chart</h3>
+											</header>
+											<p>A histogram visualizes the distribution of data by grouping
+												 it into intervals, or "bins," along the x-axis.
+												  The height of each bar represents the frequency of data falling within
+												   that bin. Pay attention to patterns, peaks, and outliers, 
+													which offer insights into the underlying data distribution.</p>
+											<ul class="actions">
+												<li><a href="generic.html" class="button">Learn more</a></li>
+											</ul>
+											{% else %}
+											<header class="major">
+												<h3>{{analysis_method}} Bar Chart</h3>
+											</header>
+											<p>A bar chart visualizes data by representing different categories or groups 
+												along the x-axis and displaying the corresponding values as the height of
+												 individual bars along the y-axis. Each bar's height corresponds to the frequency,
+												  count, or value of the respective category. Bar charts provide a clear way to compare
+												   and contrast different categories, identify patterns, and highlight outliers or significant differences in data.</p>
+											<ul class="actions">
+											{% endif %}
+												<li><a href="generic.html" class="button">Learn more</a></li>
+											</ul>
+										</div>
+									</div>
+								</section>
+
+								<section>
+									<a href="generic.html" class="image">
+										<img src="data:image/png;base64,{{ sentiments_chart_heatmap }}" alt="{{analysis_method}} Sentiment Heatmap" width="500" height="500" >
+									</a>
+									<div class="content">
+										<div class="inner">
+											<header class="major"> 
+												<h3>{{analysis_method}} Heatmap Chart</h3>
+											</header>
+											<p>Analyzing a pie chart involves understanding the proportionality of segments. 
+												Larger slices indicate higher representation. Compare colors to labels for 
+												clear insights into relative distribution.</p>
+											<ul class="actions">
+												<li><a href="generic.html" class="button">Learn more</a></li>
+											</ul>
+										</div>
+									</div>
+								</section>
+							</section>
+
+						<!-- One -->
+							<section id="one">
+								<div class="inner">
+									<header class="major">
+										<h2>Word Cloud</h2>
+									</header>
+									<img src="data:image/png;base64,{{ comments_wordcloud }}" alt="Word Cloud">
+									<p>A word cloud visually emphasizes frequently occurring words. Larger, bolded words
+										 indicate higher frequency. Pay attention to prominent terms for insights into
+										  prevalent themes or sentiments within the dataset.</p>
+									</div>
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+				<footer id="footer">
+					<div class="inner">
+						<ul class="icons">
+							<li><a href="https://twitter.com/babs_rasheed" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="https://www.instagram.com/macsauce419" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="https://github.com/CodeLord2020" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="https://www.linkedin.com/rasheedbabatunde-50133921a" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+						</ul>
+						<ul class="copyright">
+							<li>&copy; Zentiment</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+						</ul>
+					</div>
+				</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
+			<script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+			<script src="{% static 'assets/js/browser.min.js' %}"></script>
+			<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'assets/js/util.js' %}"></script>
+			<script src="{% static 'assets/js/main.js' %}"></script>
+
+
+	</body>
+</html>

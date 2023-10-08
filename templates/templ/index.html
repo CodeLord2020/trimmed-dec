@@ -8,7 +8,7 @@
 -->
 <html>
 	<head>
-		<title>Xentiment</title>
+		<title>Zentiment</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
@@ -21,7 +21,7 @@
 
 				<!-- Header -->
 					<header id="header" class="alt">
-						<a href="{% url 'home' %}" class="logo"><strong>Xentiment</strong> <span>by Macsauce</span></a>
+						<a href="{% url 'home' %}" class="logo"><strong>Zentiment</strong> <span>by Macsauce</span></a>
 						<nav>
 							<a href="#menu">Menu</a>
 						</nav>
@@ -32,7 +32,7 @@
 						<ul class="links">
 							<li><a href="{% url 'home' %}">Home</a></li>
 							<li><a href="{% url 'contact' %}">Contact</a></li>
-							<li><a href="elements.html">Donate</a></li>
+							<li><a href="{% url 'home' %}">Donate</a></li>
 							{%  if user.is_authenticated %}
 							<li><a href="logout">Logout</a></li>
 							{% else %}
@@ -51,9 +51,9 @@
 						<div class="inner">
 							<header class="major">
 								{% if user.is_authenticated %} 
-								<h1>Hi {{user.username|title}} , Welcome to Xentiment</h1>
+								<h1>Hi {{user.username|title}} , Welcome to Zentiment</h1>
 								{% else%} 
-								<h1>Hello Stranger, Welcome to Xentiment</h1>
+								<h1>Hello Stranger, Welcome to Zentiment</h1>
 								{% endif %}
 							</header>
 							<div class="content">
@@ -72,8 +72,8 @@
 										<option value="method2">Method TWO</option>
 										<option value="method3">Method THREE</option>
 										<option value="method4">Method FOUR</option>
-										<option value="method5">Method FIVE</option>
-										<option value="method6">Method SIX</option>
+										{% comment %} <option value="method5">Method FIVE</option>
+										<option value="method6">Method SIX</option> {% endcomment %}
 									</select>
 									<ul class="actions">
 										<li><button type="submit" class="button next">Enter</button></li>
@@ -128,30 +128,10 @@
 										<img src="{% static "images/pic04.jpg" %}" alt="" />
 									</span>
 									<header class="major">
-										<h3><a href="https://huggingface.co/finiteautomata/bertweet-base-sentiment-analysis" class="link">METHOD 4: BERT</a></h3>
-										<p>"finiteautomata/bertweet-base-sentiment-analysis."
-											 Model trained with SemEval 2017 corpus (around ~40k tweets).
-											 Base model is BERTweet, a RoBERTa model trained on English tweets.</p>
-									</header>
-								</article>
-								<article>
-									<span class="image">
-										<img src="{% static "images/pic05.jpg" %}" alt="" />
-									</span>
-									<header class="major">
-										<h3><a href="landing.html" class="link">METHOD 5: RoBERTa</a></h3>
-										<p>"cardiffnlp/twitter-roberta-base-sentiment-latest. 
-											This is a RoBERTa-base model trained on ~124M tweets from January 2018 to December 2021, 
-											and finetuned for sentiment analysis with the TweetEval benchmark." </p>
-									</header>
-								</article>
-								<article>
-									<span class="image">
-										<img src="{% static "images/pic06.jpg" %}" alt="" />
-									</span>
-									<header class="major">
-										<h3><a href="https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment-latest" class="link">METHOD 6: WURUWURU </a></h3>
-										<p>Feugiat amet tempus</p>
+										<h3><a href="https://huggingface.co/lxyuan/distilbert-base-multilingual-cased-sentiments-student" class="link">METHOD 4: DISTILBERT</a></h3>
+										<p>"lxyuan/distilbert-base-multilingual-cased-sentiments-student"
+											This model is distilled from the zero-shot classification pipeline on the Multilingual Sentiment dataset.
+											Supports multiple languages.</p>
 									</header>
 								</article>
 							</section>
@@ -160,12 +140,16 @@
 							<section id="two">
 								<div class="inner">
 									<header class="major">
-										<h2>Massa libero</h2>
+										<h2>Disclaimer </h2>
 									</header>
-									<p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus pharetra. Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus amet pharetra et feugiat tempus.</p>
-									<ul class="actions">
-										<li><a href="landing.html" class="button next">Get Started</a></li>
-									</ul>
+									<p>"Zentiment analysis tool employs algorithms for automated assessments. 
+										Keep in mind that results may not always precisely capture true sentiment. 
+										We prioritize your data security and ensure that all information is handled 
+										confidentially without sharing it with third parties. We value your feedback 
+										and welcome suggestions for improving our tool's functionality or features.
+										Please feel free to reach out with any ideas or concerns.
+										Our aim is to continuously enhance your sentiment analysis experience."</p>
+									
 								</div>
 							</section>
 
@@ -176,14 +160,13 @@
 					<footer id="footer">
 						<div class="inner">
 							<ul class="icons">
-								<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-								<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-								<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-								<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-								<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+								<li><a href="https://twitter.com/babs_rasheed" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+								<li><a href="https://www.instagram.com/macsauce419" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+								<li><a href="https://github.com/CodeLord2020" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+								<li><a href="https://www.linkedin.com/rasheedbabatunde-50133921a" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
 							</ul>
 							<ul class="copyright">
-								<li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+								<li>&copy; Zentiment</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
 							</ul>
 						</div>
 					</footer>

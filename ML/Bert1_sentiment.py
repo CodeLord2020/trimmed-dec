@@ -22,9 +22,24 @@ reddit = praw.Reddit(
     user_agent=os.getenv('Marvel_user_agent'),
 )
 
+# def analyze_sentiment_with_bert(comments):
+#     sentiments = []
+#     scores = []
+
+#     for comment in comments:
+#         # Analyze sentiment for each comment
+#         result = sentiment_pipeline(comment)
+#         sentiment_label = result[0]['label']
+#         sentiments.append(sentiment_label)
+#         scores.append(result[0]['score'])
+
+#     return sentiments, scores
+
 def analyze_sentiment_with_bert(comments):
     sentiments = []
     scores = []
+    five_star_comments = []  # List to store 5-star comments
+    one_star_comments = []   # List to store 1-star comments
 
     for comment in comments:
         # Analyze sentiment for each comment
@@ -33,7 +48,16 @@ def analyze_sentiment_with_bert(comments):
         sentiments.append(sentiment_label)
         scores.append(result[0]['score'])
 
-    return sentiments, scores
+        if sentiment_label == '5 stars' and len(five_star_comments) < 10:
+            five_star_comments.append(comment)
+        elif sentiment_label == '1 star' and len(one_star_comments) < 10:
+            one_star_comments.append(comment)
+
+        if len(five_star_comments) >= 10 and len(one_star_comments) >= 10:
+            break
+
+    return sentiments, scores, five_star_comments, one_star_comments
+
 
 # Calculate the total average sentiment score
 def calculate_total_average(scores_bert):
@@ -52,11 +76,13 @@ def plot_sentiments(sentiments_data_bert):
 
     # Define color mapping for sentiment labels
     color_mapping = {
+
         '1 star': 'red',
         '2 stars': 'orange',
         '3 stars': 'yellow',
         '4 stars': 'lightgreen',
-        '5 stars': 'green'
+        '5 stars': 'green',
+
     }
 
     # Extract labels and counts
@@ -81,6 +107,28 @@ def plot_sentiments(sentiments_data_bert):
 
     return img_str
 
+import matplotlib.pyplot as plt
+
+def plot_pie_chart(sentiments_data_bert):
+    # Count the occurrences of each sentiment label
+    sentiment_counts = Counter(sentiments_data_bert)
+
+    # Define colors for each sentiment label
+    colors = ['red', 'orange', 'yellow', 'lightgreen', 'green']
+
+    # Create a pie chart
+    plt.figure(figsize=(8, 8))
+    plt.pie(sentiment_counts.values(), labels=sentiment_counts.keys(), autopct='%1.1f%%', colors=colors, startangle=140)
+    plt.title('Sentiment Distribution')
+
+    # Convert the plot image to a base64-encoded string
+    img_buffer = BytesIO()
+    plt.savefig(img_buffer, format="png")
+    img_str = base64.b64encode(img_buffer.getvalue()).decode("utf-8")
+
+    return img_str
+
+
 def generate_wordcloud(comments):
     # Combine comments into a single text string
     comments_text = ' '.join(comments)
@@ -93,6 +141,9 @@ def generate_wordcloud(comments):
     wordcloud.to_image().save(img_buffer, format="PNG")
     img_str = base64.b64encode(img_buffer.getvalue()).decode("utf-8")
     return img_str
+
+
+
 
 def start_sentiment_analysis_BERT1(query):
     try:
@@ -126,8 +177,9 @@ def start_sentiment_analysis_BERT1(query):
                 query_instance.save_comments(comments)
                 print(query + ' data saved to database')
         
-        sentiments_data_bert, scores_bert = analyze_sentiment_with_bert(comments)
+        sentiments_data_bert, scores_bert, five_star_comments, one_star_comments = analyze_sentiment_with_bert(comments)
         average_score = calculate_total_average(scores_bert)
+        piechart = plot_pie_chart(sentiments_data_bert)
         sentiments_bert_plot = plot_sentiments(sentiments_data_bert)
         comments_wordcloud = generate_wordcloud(comments)
     except praw.exceptions.PRAWException as reddit_exception:
@@ -138,5 +190,5 @@ def start_sentiment_analysis_BERT1(query):
         print('Error:', str(e))
         return None, None, None
 
-    return average_score, sentiments_bert_plot, comments_wordcloud
+    return average_score, five_star_comments, one_star_comments, sentiments_bert_plot, piechart, comments_wordcloud
 

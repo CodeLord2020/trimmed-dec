@@ -17,6 +17,7 @@ reddit = praw.Reddit(
     user_agent =  os.getenv('Muhammadinho_user_agent'),
     )
 
+
 def start_sentiment_analysis_VADER(query):
     try:
         comments_max =  750

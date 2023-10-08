@@ -1,11 +1,9 @@
 from django.shortcuts import render, redirect
 from .Textblob_sentiment import start_sentiment_analysis_TextBlob
-from .Bert3_sentiment import start_sentiment_analysis_BERT3
 from .Bert1_sentiment import start_sentiment_analysis_BERT1
 from .VADER_sentiments import start_sentiment_analysis_VADER
-from .RoBERTa1_sentiment import start_sentiment_analysis_RoBERTa1
-from django.http import HttpResponse
-# from django.views.decorators.cache import cache_page
+from .Distilledbert import start_sentiment_analysis_distilbert
+
 
 
 def home(request):
@@ -21,12 +19,12 @@ def home(request):
             return redirect('vader_view', keyword=keyword)
         elif analysis_method == 'method3':
             return redirect('bert1_view', keyword=keyword)
+        #elif analysis_method == 'method4':
+        #    return redirect('bert3_view', keyword=keyword)
         elif analysis_method == 'method4':
-            return redirect('bert3_view', keyword=keyword)
-        elif analysis_method == 'method5':
-            return redirect('roberta1_view', keyword=keyword)
-        elif analysis_method == 'method6':
-            return redirect('method6_view', keyword=keyword)
+            return redirect('distilledberta_view', keyword=keyword)
+        # elif analysis_method == 'method6':
+        #     return redirect('roberta2_view', keyword=keyword)
 
     return render (request, 'templ/index.html')
 
@@ -40,6 +38,7 @@ def textblob_view(request, keyword):
         context = {
             'keyword': keyword,
             'analysis_method': 'TextBlob',
+            'chart1type': 'dist',
             'avg_sentiment_score': avg_sentiment_score,
             'hist_chart_filename': img_str1,
             'sentiments_chart_heatmap': img_str2,
@@ -51,6 +50,7 @@ def textblob_view(request, keyword):
         context = {
             'keyword': keyword,
             'analysis_method': 'TextBlob',
+            'chart1type': '',
             'avg_sentiment_score': '',
             'hist_chart_filename': '',
             'sentiments_chart_heatmap': '',
@@ -59,7 +59,7 @@ def textblob_view(request, keyword):
             'comments_wordcloud': '',
         }
 
-    return render(request, 'ml_templ/result_page.html', context)
+    return render(request, 'templ/result_page.html', context)
 
 
 def vader_view(request, keyword):
@@ -71,6 +71,7 @@ def vader_view(request, keyword):
         context = {
             'keyword': keyword,
             'analysis_method': 'VADER',
+            'chart1type': 'dist',
             'avg_sentiment_score': avg_sentiment_score,
             'hist_chart_filename': img_str1,
             'sentiments_chart_heatmap': img_str2,
@@ -82,6 +83,7 @@ def vader_view(request, keyword):
         context = {
             'keyword': keyword,
             'analysis_method': 'VADER',
+            'chart1type': '',
             'avg_sentiment_score': '',
             'hist_chart_filename': '',
             'sentiments_chart_heatmap': '',
@@ -90,17 +92,21 @@ def vader_view(request, keyword):
             'comments_wordcloud': '',
         }
 
-    return render(request, 'ml_templ/result_page.html', context)
+    return render(request, 'templ/result_page.html', context)
 
 def bert1_view(request, keyword):
-    average_score, sentiments_bert_plot, comments_wordcloud = start_sentiment_analysis_BERT1(keyword)
+    average_score,five_star_comments,one_star_comments,sentiments_bert_plot, piechart,  comments_wordcloud = start_sentiment_analysis_BERT1(keyword)
     
     if sentiments_bert_plot is not None:
         context = {
             'keyword': keyword,
-            'analysis_method': 'BERT(nlptown/bert-base-multilingual-uncased-sentiment)',
+            'analysis_method': 'BERT',
+            'chart1type': 'bar',
             'average_score':average_score,
-            'sentiments_bert_plot': sentiments_bert_plot,
+            'top_neg_comments': one_star_comments,
+            'top_pos_comments': five_star_comments,
+            'hist_chart_filename': sentiments_bert_plot,
+            'sentiments_chart_heatmap': piechart,
             'comments_wordcloud': comments_wordcloud,
         }
     else:
@@ -108,59 +114,49 @@ def bert1_view(request, keyword):
             
             'keyword': keyword,
             'analysis_method': 'BERT',
+            'chart1type': '',
             'average_score':'',
-            'sentiments_bert_plot': '',
+            'top_neg_comments': '',
+            'top_pos_comments': '',
+            'hist_chart_filename': '',
+            'sentiments_chart_heatmap': '',
             'comments_wordcloud': '',
         }
 
-    return render(request, 'ml_templ/bert_result.html', context)
-
-def bert3_view(request, keyword):
-    average_score, sentiments_bert_plot, comments_wordcloud = start_sentiment_analysis_BERT3(keyword)
-
-    if sentiments_bert_plot is not None:
-        context = {
-            'keyword': keyword,
-            'analysis_method': 'BERT(finiteautomata/bertweet-base-sentiment-analysis)',
-            'average_score':average_score,
-            'sentiments_bert_plot': sentiments_bert_plot,
-            'comments_wordcloud': comments_wordcloud,
-        }
-    else:
-        context = {
-            
-            'keyword': keyword,
-            'analysis_method': 'BERT(finiteautomata/bertweet-base-sentiment-analysis)',
-            'average_score':'',
-            'sentiments_bert_plot': '',
-            'comments_wordcloud': '',
-        }
-
-    return render(request, 'ml_templ/bert_result.html', context)
+    return render(request, 'templ/result_page.html', context)
 
 
-def roberta1_view(request, keyword):
-    average_score, sentiments_bert_plot, comments_wordcloud = start_sentiment_analysis_RoBERTa1(keyword)
+
+def distilledberta_view(request, keyword):
+    average_score, positive_comments, negative_comments, sentiments_distilbert_plot, piechart, comments_wordcloud = start_sentiment_analysis_distilbert(keyword)
     
-    if sentiments_bert_plot is not None:
+    if positive_comments is not None:
         context = {
             'keyword': keyword,
-            'analysis_method': 'RoBERTa(cardiffnlp/twitter-roberta-base-sentiment-latest)',
-            'average_score':average_score,
-            'sentiments_bert_plot': sentiments_bert_plot,
+            'chart1type': 'bar',
+            'analysis_method': 'DISTILLBERT',
+            'top_neg_comments': negative_comments,
+            'top_pos_comments': positive_comments,
+            'avg_sentiment_score':average_score,
+            'hist_chart_filename': sentiments_distilbert_plot,
+            'sentiments_chart_heatmap': piechart,
             'comments_wordcloud': comments_wordcloud,
         }
     else:
         context = {
             
             'keyword': keyword,
-            'analysis_method': 'RoBERTa(cardiffnlp/twitter-roberta-base-sentiment-latest)',
-            'average_score':'',
-            'sentiments_bert_plot': '',
+            'analysis_method': 'RoBERTa1',
+            'chart1type': '',
+            'avg_sentiment_score':'',
+            'hist_chart_filename': '',
+            'top_pos_comments': '',
+            'top_neg_comments': '',
+            'sentiments_chart_heatmap': '',
             'comments_wordcloud': '',
         }
 
-    return render(request, 'ml_templ/bert_result.html', context)
+    return render(request, 'templ/result_page.html', context)
 
 
 def contact(request):
