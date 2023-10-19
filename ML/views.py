@@ -3,9 +3,13 @@ from .Textblob_sentiment import start_sentiment_analysis_TextBlob
 from .Bert1_sentiment import start_sentiment_analysis_BERT1
 from .VADER_sentiments import start_sentiment_analysis_VADER
 from .Distilledbert import start_sentiment_analysis_distilbert
+from django.contrib.auth.decorators import login_required
 
 
+def landing(request):
+    return render (request, 'templ/landing.html')
 
+@login_required(login_url='login')
 def home(request):
     
     if request.method == 'POST':
@@ -19,12 +23,9 @@ def home(request):
             return redirect('vader_view', keyword=keyword)
         elif analysis_method == 'method3':
             return redirect('bert1_view', keyword=keyword)
-        #elif analysis_method == 'method4':
-        #    return redirect('bert3_view', keyword=keyword)
         elif analysis_method == 'method4':
             return redirect('distilledberta_view', keyword=keyword)
-        # elif analysis_method == 'method6':
-        #     return redirect('roberta2_view', keyword=keyword)
+
 
     return render (request, 'templ/index.html')
 
@@ -102,7 +103,7 @@ def bert1_view(request, keyword):
             'keyword': keyword,
             'analysis_method': 'BERT',
             'chart1type': 'bar',
-            'average_score':average_score,
+            'avg_sentiment_score':average_score,
             'top_neg_comments': one_star_comments,
             'top_pos_comments': five_star_comments,
             'hist_chart_filename': sentiments_bert_plot,
@@ -115,7 +116,7 @@ def bert1_view(request, keyword):
             'keyword': keyword,
             'analysis_method': 'BERT',
             'chart1type': '',
-            'average_score':'',
+            'avg_sentiment_score':'',
             'top_neg_comments': '',
             'top_pos_comments': '',
             'hist_chart_filename': '',
@@ -162,4 +163,5 @@ def distilledberta_view(request, keyword):
 def contact(request):
     print('contact')
     return render (request, 'templ/contact.html')
+
 

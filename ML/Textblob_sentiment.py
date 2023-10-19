@@ -21,7 +21,6 @@ reddit = praw.Reddit(
     user_agent =  os.getenv('user_agent'),
 
     )
-
 #############################################             Data Collection          ############################################################################
 
 def start_sentiment_analysis_TextBlob(query):

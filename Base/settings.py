@@ -38,7 +38,7 @@ DEBUG = os.getenv('DEBUG')
 
 # AUTH_USER_MODEL = 'authentication.CustomUser'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1',  'mysite.com', 'sentimentapp']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1',  'Zentiment.com', '192.168.78.209']
 
 # Application definition
 

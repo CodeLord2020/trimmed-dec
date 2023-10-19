@@ -10,13 +10,13 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #252525;
+  background: #181d31;
 }
 .wrapper{
   position: relative;
   max-width: 430px;
   width: 100%;
-  background: #fff;
+  background: #e2e2f5;
   padding: 34px;
   border-radius: 6px;
   box-shadow: 0 5px 10px rgba(0,0,0,0.2);
@@ -75,11 +75,11 @@ form h3{
   color: #fff;
   letter-spacing: 1px;
   border: none;
-  background: #252525;
+  background: #181d31;
   cursor: pointer;
 }
 .input-box.button input:hover{
-  background: #252525;
+  background: #52ff02;
 }
 form .text h3{
  color: #333;

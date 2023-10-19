@@ -8,11 +8,20 @@
     <link rel="stylesheet" href="{% static 'reg_style.css'  %}">
    </head>
 <body>
-  <a href="{% url 'home' %}" style="position: absolute; top: 10px; left: 10px; color: #fff; padding: 10px; background-color: #333; border-radius: 5px; text-decoration: none; font-weight: bold;">Home</a>
+  <a href="{% url 'home' %}" style="position: absolute; top: 10px; left: 10px; color: #181d31; padding: 10px; background-color: #ffffff; border-radius: 5px; text-decoration: none; font-weight: bold;">Home</a>
   <div class="wrapper">
     <h2>REGISTRATION</h2>
+        {% if messages %}
+        {% for message in messages %}
+        <div class ='alert alert-{{message.tags}}'>
+        {{message}}
+
+       </div>
+      {% endfor %}
+      {% endif %}
     <form method="POST" action="register">
-      {% csrf_token %}
+    {% csrf_token %}
+       
       <div class="input-box">
         <input type="text" name = "username" placeholder="Enter your username" required>
       </div>
@@ -25,15 +34,15 @@
       <div class="input-box">
         <input type="password" name = "repeat_password" placeholder= "Confirm Password" required>
       </div>
-      <div class="policy">
+      {% comment %} <div class="policy">
         <input type="checkbox">
         <h3>I accept all terms & condition</h3>
-      </div>
+      </div> {% endcomment %}
       <div class="input-box button">
         <input type="Submit" value="Register Now">
       </div>
       <div class="text">
-        <h3>Already have an account? <a href="login">Login now</a></h3>
+        <h3>Already have an account? <a href="{% url 'login' %}">Login now</a></h3>
       </div>
     </form>
   </div>

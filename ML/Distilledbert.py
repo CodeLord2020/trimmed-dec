@@ -89,7 +89,7 @@ def plot_sentiments(sentiments_data):
 def plot_pie_chart(sentiments_data):
     sentiment_counts = Counter(sentiments_data)
 
-    colors = ['green', 'red', 'yellow']
+    colors = ['red', 'green', 'yellow']
 
     labels = sentiment_counts.keys()
     counts = sentiment_counts.values()

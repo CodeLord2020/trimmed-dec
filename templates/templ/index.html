@@ -21,7 +21,7 @@
 
 				<!-- Header -->
 					<header id="header" class="alt">
-						<a href="{% url 'home' %}" class="logo"><strong>Zentiment</strong> <span>by Macsauce</span></a>
+						<a href="{% url 'landing' %}" class="logo"><strong>Zentiment</strong> <span>by Macsauce</span></a>
 						<nav>
 							<a href="#menu">Menu</a>
 						</nav>
@@ -34,12 +34,12 @@
 							<li><a href="{% url 'contact' %}">Contact</a></li>
 							<li><a href="{% url 'home' %}">Donate</a></li>
 							{%  if user.is_authenticated %}
-							<li><a href="logout">Logout</a></li>
+							<li><a href="{% url 'logout' %}"">Logout</a></li>
 							{% else %}
-							<li><a href="login">Login or Sign up</a></li>
+							<li><a href="{% url 'login' %}"">Login or Sign up</a></li>
 							{% endif %}
 						</ul>
-							
+						{% comment %} MIGHT NEED TO REMOVE NEXT ul  {% endcomment %}
 						<ul class="actions stacked">
 							<li><a href="#" class="button primary fit">Get Started</a></li>
 							
@@ -57,9 +57,6 @@
 								{% endif %}
 							</header>
 							<div class="content">
-								<p>Elevate your decision-making with our AI-driven <br>
-									Sentiment analysis tools using Reddit Insights!<br>
-								</p>
 								<form method="post" action="{% url 'home' %}">
 									{% csrf_token %}
 									<input type="text" name="keyword" id="keyword" style="background-color: white; color: black; font-weight: bold;" />
@@ -80,9 +77,7 @@
 									</ul>
 								</form>
 								
-								<ul class="actions">
-									<li><br><a href="#one" class="button next scrolly">Explore Methods</a></li>
-								</ul>
+								
 							</div>
 						</div>
 					</section>
@@ -130,8 +125,8 @@
 									<header class="major">
 										<h3><a href="https://huggingface.co/lxyuan/distilbert-base-multilingual-cased-sentiments-student" class="link">METHOD 4: DISTILBERT</a></h3>
 										<p>"lxyuan/distilbert-base-multilingual-cased-sentiments-student"
-											This model is distilled from the zero-shot classification pipeline on the Multilingual Sentiment dataset.
-											Supports multiple languages.</p>
+											This model is distilled from the zero-shot classification pipeline.
+										Supports multiple languages.</p>
 									</header>
 								</article>
 							</section>

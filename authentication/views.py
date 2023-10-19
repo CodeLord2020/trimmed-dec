@@ -49,8 +49,8 @@ def login(request):
 
          if user is not None:
             auth.login(request, user)
-            return redirect('index')
-            #return render(request, 'index.html')l
+            return redirect('home')
+
          else:
             messages.info(request, 'Invalid Credentials')
             return redirect('login')
@@ -59,7 +59,7 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect('templ/home')
+    return redirect(request,'templ/home')
 
 
 def forgot_password(request):

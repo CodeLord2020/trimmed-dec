@@ -80,7 +80,7 @@ def plot_sentiments(sentiments_data_bert):
         '1 star': 'red',
         '2 stars': 'orange',
         '3 stars': 'yellow',
-        '4 stars': 'lightgreen',
+        '4 stars': 'blue',
         '5 stars': 'green',
 
     }
@@ -114,7 +114,7 @@ def plot_pie_chart(sentiments_data_bert):
     sentiment_counts = Counter(sentiments_data_bert)
 
     # Define colors for each sentiment label
-    colors = ['red', 'orange', 'yellow', 'lightgreen', 'green']
+    colors = ['yellow', 'green', 'red', 'lightgreen', 'orange']
 
     # Create a pie chart
     plt.figure(figsize=(8, 8))
