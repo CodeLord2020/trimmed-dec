@@ -34,7 +34,7 @@
 							<li><a href="{% url 'contact' %}">Contact</a></li>
 							<li><a href="{% url 'home' %}">Donate</a></li>
 							{%  if user.is_authenticated %}
-							<li><a href="{% url 'logout' %}"">Logout</a></li>
+							<li><a href="{% url 'logout' %}">Logout</a></li>
 							{% else %}
 							<li><a href="{% url 'login' %}"">Login or Sign up</a></li>
 							{% endif %}
@@ -47,20 +47,27 @@
 					</nav>
 
 				<!-- Banner -->
+			
+
 					<section id="banner" class="major">
 						<div class="inner">
 							<header class="major">
-								{% if user.is_authenticated %} 
-								<h1>Hi {{user.username|title}} , Welcome to Zentiment</h1>
-								{% else%} 
-								<h1>Hello Stranger, Welcome to Zentiment</h1>
-								{% endif %}
+								<h2>!!!READ BEFORE PROCEEDING </h2>
 							</header>
+							<p>A brand is a unique name, symbol, or design that sets apart a product, person, team, event, or company. 
+								This includes product brands like "Apple," personal brands like Oprah Winfrey, sports clubs like "Manchester United,"
+								events like the "Olympic Games," corporate brands like "Coca-Cola," and social cause brands like "Greenpeace." 
+								A brand creates recognition and distinguishes entities in the market or public eye.
+							<br><br>
+							   Additionally, note that if comments on the entered keyword are less than 100, no results will be displayed as the analysis may not yield meaningful results..
+							</p>
 							<div class="content">
+
 								<form method="post" action="{% url 'home' %}">
 									{% csrf_token %}
-									<input type="text" name="keyword" id="keyword" style="background-color: white; color: black; font-weight: bold;" />
-									
+									{% comment %} <input type="text" name="keyword" id="keyword" placeholder= "Enter Brand" style="background-color: white; color: black; font-weight: bold;" /> {% endcomment %}
+									<input type="text" name="keyword" id="keyword" placeholder="Enter Brand" style="background-color: white; color: black; font-weight: bold;" />
+
 
 									{% comment %} <input type="text" name="keyword" id="keyword" placeholder="Enter Brand or Keyword" style="background-color: white; color: black; font-weight: bold;" /> {% endcomment %}
 									<select name="analysis_method" id="analysis_method" required>

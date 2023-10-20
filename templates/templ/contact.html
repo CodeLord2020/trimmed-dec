@@ -34,7 +34,7 @@
 							<li><a href="{% url 'contact' %}">Contact</a></li>
 							<li><a href="elements.html">Donate</a></li>
 							{%  if user.is_authenticated %}
-							<li><a href="logout">Logout</a></li>
+							<li><a href="{% url 'logout' %}">Logout</a></li>
 							{% else %}
 							<li><a href="login">Login or Sign up</a></li>
 							{% endif %}
@@ -47,7 +47,9 @@
 					</nav>
 					</div>
 				<!-- Contact -->
-                <section id="contact">
+
+                <section id="wrapper">
+					<div class="main">
                     <div class="inner">
                         <section>
                             <form method="post" action="#">
@@ -76,26 +78,27 @@
                                 <div class="contact-method">
                                     <span class="icon solid alt fa-envelope"></span>
                                     <h3>Email</h3>
-                                    <a href="#">information@untitled.tld</a>
+                                    <a href="adebayoworkmail@gmail.com">contact@untitled.tld</a>
                                 </div>
                             </section>
                             <section>
                                 <div class="contact-method">
                                     <span class="icon solid alt fa-phone"></span>
                                     <h3>Phone</h3>
-                                    <span>(000) 000-0000 x12387</span>
+                                    <span>(+234) 708-772 -6266</span>
                                 </div>
                             </section>
                             <section>
                                 <div class="contact-method">
                                     <span class="icon solid alt fa-home"></span>
                                     <h3>Address</h3>
-                                    <span>1234 Somewhere Road #5432<br />
-                                    Nashville, TN 00000<br />
-                                    United States of America</span>
+                                    <span>Southgate, Federal University of Technology Akure,<br />
+                                    Akure South, Ondo, PC:340110,<br />
+                                    Nigeria.
                                 </div>
                             </section>
                         </section>
+					</div>
                     </div>
                 </section>
 

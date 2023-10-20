@@ -30,6 +30,7 @@ def home(request):
     return render (request, 'templ/index.html')
 
 # @cache_page(60 * 30)
+@login_required(login_url='login')
 def textblob_view(request, keyword):
     sentiments_data, comments_wordcloud = start_sentiment_analysis_TextBlob(keyword)
     
@@ -62,7 +63,7 @@ def textblob_view(request, keyword):
 
     return render(request, 'templ/result_page.html', context)
 
-
+@login_required(login_url='login')
 def vader_view(request, keyword):
     sentiments_data, comments_wordcloud = start_sentiment_analysis_VADER(keyword)
     
@@ -95,6 +96,7 @@ def vader_view(request, keyword):
 
     return render(request, 'templ/result_page.html', context)
 
+@login_required(login_url='login')
 def bert1_view(request, keyword):
     average_score,five_star_comments,one_star_comments,sentiments_bert_plot, piechart,  comments_wordcloud = start_sentiment_analysis_BERT1(keyword)
     
@@ -127,7 +129,7 @@ def bert1_view(request, keyword):
     return render(request, 'templ/result_page.html', context)
 
 
-
+@login_required(login_url='login')
 def distilledberta_view(request, keyword):
     average_score, positive_comments, negative_comments, sentiments_distilbert_plot, piechart, comments_wordcloud = start_sentiment_analysis_distilbert(keyword)
     
@@ -159,9 +161,8 @@ def distilledberta_view(request, keyword):
 
     return render(request, 'templ/result_page.html', context)
 
-
+@login_required(login_url='login')
 def contact(request):
-    print('contact')
     return render (request, 'templ/contact.html')
 
 
