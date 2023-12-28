@@ -9,6 +9,7 @@ from io import BytesIO
 import base64
 import seaborn as sns
 from .models import Query_data
+from django.contrib import messages
 
 # Initialize the Reddit API client
 reddit = praw.Reddit(
@@ -18,7 +19,7 @@ reddit = praw.Reddit(
     )
 
 
-def start_sentiment_analysis_VADER(query):
+def start_sentiment_analysis_VADER(request, query):
     try:
         comments_max =  750
         limit = 15
@@ -30,8 +31,10 @@ def start_sentiment_analysis_VADER(query):
         if existing_query and existing_query.get_comments():
             # Use existing comments from the database.
             comments = existing_query.get_comments()
-            print(query + ' data fetch to database')
+            messages.info(request, 'Fetching data from database...')
+            print(query + ' data fetch from database')
         else:
+            messages.info(request, 'Fetching data from reddit API...')
             for submission in reddit.subreddit("all").search(query, limit=limit):
                 submission.comments.replace_more(limit=None)
                 for comment in submission.comments.list():
@@ -66,8 +69,9 @@ import matplotlib.pyplot as plt
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from textblob import TextBlob
 
-# nltk.download('punkt')
-def calculate_sentiment(comments):
+
+def calculate_sentiment(request, comments):
+    messages.info(request, 'Analyzing Data Sentiments...')
     # Initialize the VADER sentiment analyzer
     analyzer = SentimentIntensityAnalyzer()
     vader_scores = []  # Initialize a list to store VADER sentiment scores

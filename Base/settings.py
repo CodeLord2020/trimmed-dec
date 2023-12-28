@@ -176,7 +176,7 @@ CELERY_BEAT_SCHEDULE = {
     'clear_query_data_task': {
         'task': 'your_app.tasks.clear_query_data',
         'schedule': timedelta(days=3),  # Run every 3 days
-    },
+    }
 }
 
 
@@ -186,3 +186,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_CONTACT = os.getenv('EMAIL_CONTACT')

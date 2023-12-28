@@ -8,7 +8,7 @@ import json
 from io import BytesIO
 import base64
 import requests
-import nltk
+from django.contrib import messages
 
 from .models import Query_data
 import seaborn as sns
