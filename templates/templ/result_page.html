@@ -59,7 +59,7 @@
 							</header>
 							<div class="content">
 								<p>The average sentiment score of {{keyword}}<br/>
-								 comments is {{ avg_sentiment_score }}.</p>
+								 comments using {{ analysis_method }} is {{ avg_sentiment_score }}.</p>
 							</div>
 						</div>
 					</section>
@@ -108,7 +108,7 @@
 											<header class="major">
 												<h3>{{analysis_method}} Histogram Chart</h3>
 											</header>
-											<p>A histogram visualizes the distribution of data by grouping
+											<p>This visualizes the distribution of data by grouping
 												 it into intervals, or "bins," along the x-axis.
 												  The height of each bar represents the frequency of data falling within
 												   that bin. Pay attention to patterns, peaks, and outliers, 
@@ -133,28 +133,31 @@
 									</div>
 								</section>
 
-								<section>
-									<a href="generic.html" class="image">
-										<img src="data:image/png;base64,{{ sentiments_chart_heatmap }}" alt="{{analysis_method}} Sentiment Heatmap" width="500" height="500" >
-									</a>
-									<div class="content">
-										<div class="inner">
-											<header class="major"> 
-												<h3>{{analysis_method}} Heatmap Chart</h3>
-											</header>
-											<p>Analyzing a pie chart involves understanding the proportionality of segments. 
-												Larger slices indicate higher representation. Compare colors to labels for 
-												clear insights into relative distribution.</p>
-											<ul class="actions">
-												
-											</ul>
-										</div>
-									</div>
-								</section>
 							</section>
 
 						<!-- One -->
 							<section id="one">
+
+								{% comment %} {% if analysis_method == 'TextBlob' %} {% endcomment %}
+								<div class="inner">
+									<header class="major">
+										<h2>Positive Commments Word Cloud</h2>
+									</header>
+									<img src="data:image/png;base64,{{ comments_wordcloud }}" alt="Word Cloud">
+									</div>
+									<div class="inner">
+										<header class="major">
+											<h2>Negative Comments Word Cloud</h2>
+										</header>
+										<img src="data:image/png;base64,{{ neg_comments_wordcloud }}" alt="Word Cloud">
+										<p>A word cloud visually emphasizes frequently occurring words. Larger, bolded words
+											indicate higher frequency. Pay attention to prominent terms for insights into
+											 prevalent themes or sentiments within the dataset.</p>
+									   </div>	
+									</div>
+
+								{% comment %} {% else %} {% endcomment %}
+{% comment %} 
 								<div class="inner">
 									<header class="major">
 										<h2>Word Cloud</h2>
@@ -163,8 +166,21 @@
 									<p>A word cloud visually emphasizes frequently occurring words. Larger, bolded words
 										 indicate higher frequency. Pay attention to prominent terms for insights into
 										  prevalent themes or sentiments within the dataset.</p>
-									</div>
+									</div> {% endcomment %}
+									{% comment %} {% endif %} {% endcomment %}
 							</section>
+                         
+							{% if prescription %}
+							<section id="two">
+								<div class="inner">
+									<header class="major">
+										<h2>Summary </h2>
+									</header>
+									<p>{{prescription}}</p>
+									
+								</div>
+							</section>
+							{% endif %}
 
 					</div>
 

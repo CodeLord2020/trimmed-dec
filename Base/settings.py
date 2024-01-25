@@ -106,8 +106,8 @@ WSGI_APPLICATION = 'Base.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sentimentapp_db',
-        'USER': 'admin',
+        'NAME': 'lean_sentiment_db',
+        'USER': 'postgres',
         'PASSWORD': 'baddest419',
         'HOST': 'localhost',  # Or your PostgreSQL server's IP address
         'PORT': '',            # Leave it empty to use the default PostgreSQL port (5432)
@@ -115,6 +115,12 @@ DATABASES = {
 }
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -176,7 +182,7 @@ CELERY_BEAT_SCHEDULE = {
     'clear_query_data_task': {
         'task': 'your_app.tasks.clear_query_data',
         'schedule': timedelta(days=3),  # Run every 3 days
-    },
+    }
 }
 
 
@@ -186,3 +192,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_CONTACT = os.getenv('EMAIL_CONTACT')

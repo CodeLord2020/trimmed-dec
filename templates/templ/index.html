@@ -12,13 +12,12 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+		<script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
 		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
 	</head>
 	<body class="is-preload">
-
 		<!-- Wrapper -->
 			<div id="wrapper">
-
 				<!-- Header -->
 					<header id="header" class="alt">
 						<a href="{% url 'landing' %}" class="logo"><strong>Zentiment</strong> <span>by Macsauce</span></a>
@@ -26,13 +25,12 @@
 							<a href="#menu">Menu</a>
 						</nav>
 					</header>
-
 				<!-- Menu -->
 					<nav id="menu">
 						<ul class="links">
 							<li><a href="{% url 'home' %}">Home</a></li>
 							<li><a href="{% url 'contact' %}">Contact</a></li>
-							<li><a href="{% url 'home' %}">Donate</a></li>
+							<li><a href="{% url 'donate' %}">Donate</a></li>
 							{%  if user.is_authenticated %}
 							<li><a href="{% url 'logout' %}">Logout</a></li>
 							{% else %}
@@ -47,8 +45,7 @@
 					</nav>
 
 				<!-- Banner -->
-			
-
+		
 					<section id="banner" class="major">
 						<div class="inner">
 							<header class="major">
@@ -62,30 +59,31 @@
 							   Additionally, note that if comments on the entered keyword are less than 100, no results will be displayed as the analysis may not yield meaningful results..
 							</p>
 							<div class="content">
-
-								<form method="post" action="{% url 'home' %}">
+								<form method="post" action="{% url 'home' %}" hx-post="true" hx-trigger="onload: result.innerHTML = 'Result: ' + event.detail.responseText;">
 									{% csrf_token %}
-									{% comment %} <input type="text" name="keyword" id="keyword" placeholder= "Enter Brand" style="background-color: white; color: black; font-weight: bold;" /> {% endcomment %}
+									<div class="field half" hx-target="#messages" hx-swap="outerHTML">
+										{% if messages %}
+											<ul class="messages" id="messages">
+												{% for message in messages %}
+													<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+												{% endfor %}
+											</ul>
+										{% endif %}
+										<br>
+									</div>
 									<input type="text" name="keyword" id="keyword" placeholder="Enter Brand" style="background-color: white; color: black; font-weight: bold;" />
-
-
-									{% comment %} <input type="text" name="keyword" id="keyword" placeholder="Enter Brand or Keyword" style="background-color: white; color: black; font-weight: bold;" /> {% endcomment %}
 									<select name="analysis_method" id="analysis_method" required>
 										<option value="" disabled selected>Select Method</option>
 										<option value="method1">Method ONE</option>
 										<option value="method2">Method TWO</option>
-										<option value="method3">Method THREE</option>
-										<option value="method4">Method FOUR</option>
-										{% comment %} <option value="method5">Method FIVE</option>
-										<option value="method6">Method SIX</option> {% endcomment %}
 									</select>
 									<ul class="actions">
 										<li><button type="submit" class="button next">Enter</button></li>
 									</ul>
 								</form>
-								
-								
 							</div>
+							
+							
 						</div>
 					</section>
 
@@ -113,27 +111,6 @@
 										<h3><a href="https://vadersentiment.readthedocs.io/en/latest/" class="link">METHOD 2: VADER</a></h3>
 										<p>VADER uses a combination of lexicon-based and grammatical rules to determine the sentiment
 											 polarity (positive, negative, or neutral) of a piece of text. </p>
-									</header>
-								</article>
-								<article>
-									<span class="image">
-										<img src="{% static "images/pic03.jpg" %}" alt="" />
-									</span>
-									<header class="major">
-										<h3><a href="https://huggingface.co/nlptown/bert-base-multilingual-uncased-sentiment" class="link">METHOD 3: BERT</a></h3>
-										<p>"nlptown/bert-base-multilingual-uncased-sentiment." This is a bert-base-multilingual-uncased model finetuned for sentiment analysis on product reviews in:
-											 English, Dutch, German, French, Spanish, Italian.</p>
-									</header>
-								</article>
-								<article>
-									<span class="image">
-										<img src="{% static "images/pic04.jpg" %}" alt="" />
-									</span>
-									<header class="major">
-										<h3><a href="https://huggingface.co/lxyuan/distilbert-base-multilingual-cased-sentiments-student" class="link">METHOD 4: DISTILBERT</a></h3>
-										<p>"lxyuan/distilbert-base-multilingual-cased-sentiments-student"
-											This model is distilled from the zero-shot classification pipeline.
-										Supports multiple languages.</p>
 									</header>
 								</article>
 							</section>

@@ -33,7 +33,7 @@
 						<ul class="links">
 							<li><a href="#">Home</a></li>
 							<li><a href="{% url 'contact' %}">Contact</a></li>
-							<li><a href="elements.html">Donate</a></li>
+							<li><a href="{% url 'donate' %}">Donate</a></li>
 							{%  if user.is_authenticated %}
 							<li><a href="logout">Logout</a></li>
 							{% else %}
@@ -53,7 +53,7 @@
 					<div class="inner">
 						<header class="major">
 							{% if user.is_authenticated %} 
-							<h1>Hi {{user.username|title}} , Welcome to Zentiment</h1>
+							<h1>Hello {{user.username|title}} , Welcome to Zentiment-Lite</h1>
 							{% else%} 
 							<h1>Hello Stranger, Welcome to Zentiment</h1>
 							{% endif %}

@@ -1,0 +1,132 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Zentiment </title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+				<!-- Note: The "styleN" class below should match that of the banner element. -->
+					<header id="header" class="alt style2">
+						<a href="{% url 'home' %}" class="logo"><strong>Zentiment</strong> <span>by Macsauce</span></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="{% url 'home' %}">Home</a></li>
+							<li><a href="{% url 'contact' %}">Contact</a></li>
+							{%  if user.is_authenticated %}
+							<li><a href="logout">Logout</a></li>
+							{% else %}
+							<li><a href="login">Login or Sign up</a></li>
+							{% endif %}
+						</ul>
+							
+						<ul class="actions stacked">
+							<li><a href="{% url 'home' %}" class="button primary fit">Get Started</a></li>
+							
+						</ul>
+					</nav>
+
+				<!-- Banner -->
+
+				<section id="banner" class="major">
+					<div class="inner">
+						<header class="major">
+							<h1>Donation Page</h1>
+						</header>
+						<div class="content">
+							<p>Your donation will be kindly appreciated.<br>
+							It is crucial to the scalability of this web application.<br>
+							</p>
+							<ul class="actions" id = "buttonContainer">
+								<li><a class="button next scrolly" onclick="payWithMonnify()"> PAY WITH MONNIFY</a></li>
+                                {% comment %} <li><a href="{% url 'home' %}" class="button next scrolly" onclick="payWithMonnify()"> PAY WITH MONNIFY</a></li> {% endcomment %}
+							</ul>
+						</div>
+					</div>
+				</section>
+							
+
+				<!-- Footer -->
+				<footer id="footer">
+				
+				</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
+			<script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+			<script src="{% static 'assets/js/browser.min.js' %}"></script>
+			<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'assets/js/util.js' %}"></script>
+			<script src="{% static 'assets/js/main.js' %}"></script>
+            <script src="{% static 'assets/js/buttonContainer.js' %}"></script>
+            <script type="text/javascript" src="https://sdk.monnify.com/plugin/monnify.js"></script>
+
+
+	</body>
+</html>
+
+<script type="text/javascript">
+	function payWithMonnify() {
+		MonnifySDK.initialize({
+			amount: 5000,
+			currency: "NGN",
+			reference: '' + Math.floor((Math.random() * 1000000000) + 1),
+			customerName: "John Doe",
+			customerEmail: "monnify@monnify.com",
+			apiKey: "MK_TEST_SAF7HR5F3F",
+			contractCode: "4934121693",
+			paymentDescription: "Test Pay",
+			isTestMode: true,
+		    metadata: {
+                    "name": "Damilare",
+                    "age": 45
+            },
+			paymentMethods: ["CARD", "ACCOUNT_TRANSFER"],
+			incomeSplitConfig: 	[
+            	{
+	    			"subAccountCode": "MFY_SUB_342113621921",
+	    			"feePercentage": 50,
+		    		"splitAmount": 1900,
+		    		"feeBearer": true
+    			},
+    			{
+		    		"subAccountCode": "MFY_SUB_342113621922",
+		    		"feePercentage": 50,
+	    			"splitAmount": 2100,
+	    			"feeBearer": true
+	    		}
+    	    ],
+			onComplete: function(response){
+				//Implement what happens when transaction is completed.
+	 			console.log(response);
+			},
+			onClose: function(data){
+				//Implement what should happen when the modal is closed here
+				console.log(data);
+			}
+		});
+	}
+</script>
