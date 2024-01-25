@@ -1,0 +1,33 @@
+body {
+    background-color: #252525;
+    color: white;
+  }
+  
+  .form__group label {
+    color: white;
+  }
+  
+  .form__group input,
+  .form__group select,
+  .form__group textarea {
+    background-color: #444444;
+    color: white;
+  }
+  
+  .form__group--large textarea {
+    height: 400px;
+  }
+  
+  .btn {
+    color: white;
+    border: 2px solid white;
+  }
+  
+  .btn--dark {
+    background-color: #444444;
+  }
+  
+  .btn--main {
+    background-color: #0077cc;
+  }
+  

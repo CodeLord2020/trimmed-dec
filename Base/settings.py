@@ -38,8 +38,8 @@ DEBUG = os.getenv('DEBUG')
 
 # AUTH_USER_MODEL = 'authentication.CustomUser'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1',  'Zentiment.com', '192.168.78.209']
-
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1',  'Zentiment.com', '192.168.78.209']
+ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
@@ -70,14 +70,14 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'Base.urls'
 
-CACHES = {
-    'default': {
+# CACHES = {
+#     'default': {
 
-        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
-        'LOCATION': '127.0.0.1:11211',  # Replace with your Memcached server address
-        # 'TIMEOUT': 7200,
-    }
-}
+#         'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+#         'LOCATION': '127.0.0.1:11211',  # Replace with your Memcached server address
+#         # 'TIMEOUT': 7200,
+#     }
+# }
 
 TEMPLATES = [
     {
@@ -99,20 +99,26 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Base.wsgi.application'
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'lean_sentiment_db',
-        'USER': 'postgres',
-        'PASSWORD': 'baddest419',
-        'HOST': 'localhost',  # Or your PostgreSQL server's IP address
-        'PORT': '',            # Leave it empty to use the default PostgreSQL port (5432)
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'lean_sentiment_db',
+#         'USER': 'postgres',
+#         'PASSWORD': 'baddest419',
+#         'HOST': 'localhost',  # Or your PostgreSQL server's IP address
+#         'PORT': '',            # Leave it empty to use the default PostgreSQL port (5432)
+#     }
+# }
 
 
 # DATABASES = {
@@ -159,8 +165,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 #MEDIA_URL = '/images/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+
+CSRF_TRUSTED_ORIGINS = [ 
+    'https://*.railway.app'
 ]
 
 # Default primary key field type
@@ -168,22 +181,22 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-REDIS_HOST = 'localhost' 
-REDIS_PORT = '6379' 
-BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0' 
-BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600} 
-CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'
+# REDIS_HOST = 'localhost' 
+# REDIS_PORT = '6379' 
+# BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0' 
+# BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600} 
+# CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_TIMEZONE = 'UTC'
 
-CELERY_BEAT_SCHEDULE = {
-    'clear_query_data_task': {
-        'task': 'your_app.tasks.clear_query_data',
-        'schedule': timedelta(days=3),  # Run every 3 days
-    }
-}
+# CELERY_BEAT_SCHEDULE = {
+#     'clear_query_data_task': {
+#         'task': 'your_app.tasks.clear_query_data',
+#         'schedule': timedelta(days=3),  # Run every 3 days
+#     }
+# }
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
