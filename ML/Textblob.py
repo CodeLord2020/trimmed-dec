@@ -25,12 +25,8 @@ reddit = praw.Reddit(
 #############################################             Data Collection          ###########################################################################
 def collect_data(query):
     try:
-        reddit = praw.Reddit(client_id='your_client_id',
-                             client_secret='your_client_secret',
-                             user_agent='your_user_agent')
-
-        comments_max = 750
-        limit = 15
+        comments_max = 200
+        limit = 10
         comments = []
 
         # Check if there are existing comments related to 'query' in the database.

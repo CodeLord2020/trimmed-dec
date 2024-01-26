@@ -59,7 +59,7 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect(request,'templ/home')
+    return redirect('landing')
 
 
 def forgot_password(request):
